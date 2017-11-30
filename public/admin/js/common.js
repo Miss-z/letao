@@ -16,9 +16,25 @@ $(document).ajaxStop(function(){
     },500);
    
 });
+
+
+//发送一个ajax请求，询问用户是否登录了，如果登陆了，就继续，如果没登录，需要跳转到登录页
+if(location.href.indexOf("login.html")==-1){
+    $.ajax({
+       type:"get",
+       url:"/employee/checkRootLogin",
+       success:function (data){
+           if(data.error ===400){
+                //说明用户没有登录，跳转到登录页
+                location.href = "login.html";
+           }
+       }
+    })
+}
+
+
+
 // 进度条模块结束 
-
-
 //二级菜单显示和隐藏效果
 $(".child").prev().on("click",function(){
     $(this).next().slideToggle();
